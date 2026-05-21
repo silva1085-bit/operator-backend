@@ -1,0 +1,61 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node / Expo ---
+node_modules/
+.expo/
+.expo-shared/
+dist/
+web-build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- iOS / Android native build artefacts ---
+ios/Pods/
+ios/build/
+android/.gradle/
+android/build/
+android/app/build/
+*.xcuserstate
+
+# --- Env files (NEVER push secrets) ---
+.env
+.env.local
+.env.*.local
+frontend/.env
+backend/.env
+
+# --- Editor / OS ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# --- Render / EAS ---
+.render/
+.easignore
+
+# --- Big binaries we DO want in the repo for Render disk seeding ---
+# (we ship videos via Render's disk seed or upload after deploy,
+#  NOT through git, because GitHub blocks files > 100 MB)
+backend/static/videos/_backup/
+backend/static/videos/**/*.mov
+backend/static/videos/**/*.MOV
+
+# Keep the directory structure but ignore large videos in git
+# (we'll upload them to Render disk separately)
+backend/static/videos/_backup/states/mission-energize.mov
+backend/static/videos/_backup/states/mission-sleep.mov
+backend/static/videos/_backup/states/mission-perform.mov
+backend/static/videos/_backup/techniques/technique-wimhof.mov
+backend/static/videos/_backup/techniques/technique-nadi.mov

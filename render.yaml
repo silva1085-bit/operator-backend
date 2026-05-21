@@ -1,0 +1,53 @@
+# Render Blueprint for Operator — Breath & Wellness API
+# Docs: https://render.com/docs/blueprint-spec
+#
+# IMPORTANT (one-time setup):
+#   After Render creates the service from this blueprint, you must add the
+#   following secret environment variables in the Render dashboard
+#   (Dashboard → Service → Environment):
+#     - MONGO_URL          (your MongoDB Atlas SRV connection string)
+#     - DB_NAME            (e.g. ember_breath)
+#     - JWT_SECRET         (long random string — keep the same as current
+#                           backend/.env so existing TestFlight tokens stay valid)
+#     - ADMIN_EMAIL
+#     - ADMIN_PASSWORD
+#     - EMERGENT_LLM_KEY
+#
+# The persistent disk below mounts at /var/data and survives redeploys.
+# We tell the app to use it via STATIC_DIR=/var/data/static.
+
+services:
+  - type: web
+    name: operator-breath-api
+    runtime: python
+    plan: starter            # $7/mo, no cold starts. Switch to 'free' to test.
+    region: oregon           # closest to most TestFlight reviewers
+    branch: main             # change if your default branch is different
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT --workers 2 --proxy-headers --forwarded-allow-ips='*'
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: video-storage
+      mountPath: /var/data
+      sizeGB: 1             # ~730 MB needed; bump to 5 GB later if you add more videos
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: STATIC_DIR
+        value: /var/data/static
+      - key: PYTHONUNBUFFERED
+        value: 1
+      # The following must be added manually in the Render dashboard (set as secret):
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: EMERGENT_LLM_KEY
+        sync: false
