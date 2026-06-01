@@ -1356,9 +1356,9 @@ async def revoke_pro(current_user: dict = Depends(get_current_user)):
 
 
 # ---------- Intro Video ----------
-INTRO_VIDEO_PATH = ROOT_DIR / "static" / "videos" / "intro.mp4"
-INTRO_WEBM_PATH = ROOT_DIR / "static" / "videos" / "intro.webm"
-INTRO_POSTER_PATH = ROOT_DIR / "static" / "videos" / "intro_poster.jpg"
+INTRO_VIDEO_PATH = STATIC_DIR / "videos" / "intro.mp4"
+INTRO_WEBM_PATH = STATIC_DIR / "videos" / "intro.webm"
+INTRO_POSTER_PATH = STATIC_DIR / "videos" / "intro_poster.jpg"
 
 
 def _range_video_response(file_path: Path, request: Request, media_type: str = "video/mp4") -> Response:
@@ -1533,7 +1533,7 @@ async def mark_intro_watched(current_user: dict = Depends(get_current_user)):
 
 
 # ---------- State / Mission Videos (admin-managed) ----------
-STATE_VIDEOS_DIR = ROOT_DIR / "static" / "videos" / "states"
+STATE_VIDEOS_DIR = STATIC_DIR / "videos" / "states"
 STATE_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
 ALLOWED_STATE_IDS = {
@@ -1769,7 +1769,7 @@ async def stream_state_video(filename: str, request: Request):
 
 
 # ---------- Reset Videos (Operator / Civilian 60-Second Reset) ----------
-RESET_VIDEOS_DIR = ROOT_DIR / "static" / "videos" / "reset"
+RESET_VIDEOS_DIR = STATIC_DIR / "videos" / "reset"
 RESET_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
 _RESET_VARIANTS = {
@@ -1860,7 +1860,7 @@ async def admin_reset_stats(admin: dict = Depends(require_admin)):
 
 
 # ---------- Technique Videos (admin-managed, one per breathwork technique) ----------
-TECHNIQUE_VIDEOS_DIR = ROOT_DIR / "static" / "videos" / "techniques"
+TECHNIQUE_VIDEOS_DIR = STATIC_DIR / "videos" / "techniques"
 TECHNIQUE_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -2058,7 +2058,7 @@ async def stream_technique_video(filename: str, request: Request):
 
 
 # ---------- Video Library ----------
-LIBRARY_VIDEOS_DIR = ROOT_DIR / "static" / "videos" / "library"
+LIBRARY_VIDEOS_DIR = STATIC_DIR / "videos" / "library"
 LIBRARY_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
 VIDEO_LIBRARY_CATEGORIES = [
